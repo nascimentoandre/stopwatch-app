@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: "Poppins_400Regular",
-    fontSize: 32,
+    fontSize: 50,
     color: colors.text,
   },
   special: {
