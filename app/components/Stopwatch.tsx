@@ -20,44 +20,36 @@ const Timer: React.FC<Props> = ({ textStyle }) => {
   const [seconds, setSeconds] = useState<number>(0);
   let [minutes, setMinutes] = useState<number>(0);
   const [play, setPlay] = useState<boolean>(false);
-  let interval: any;
+  let timerSeconds: any, timerMinutes: any;
 
   const handlePlay: any = () => {
     setPlay(play => !play);
-    //setMinutes(minutes += 1);
-    //setTimeout(() => {
-    //  setMinutes(minutes++);
-    //}, 1000);
-    //console.log(minutes);
-    // add functionality
-    //const [time, setTime] = useState(Date.now());
-
-   // useEffect(() => {
-   //   const interval = setInterval(() => setTime(Date.now()), 1000);
-   //   return () => {
-   //     console.log(interval);
-   //     clearInterval(interval);
-   //   };
-   // }, []);
   }
 
   useEffect(() => {
     if (play) {
-      interval = setInterval(() => {
-        setSeconds(seconds => seconds + 1);
+      timerSeconds = setInterval(() => {
+        setSeconds(seconds =>  {
+          if (seconds < 59) return seconds + 1;
+          else return 1;
+          })
       }, 1000);
-      //setTimeout(() => {
-      //  setMinutes(minutes => minutes +1);
-      //}, 1000)
-      // setMinutes(minutes => minutes + 1);
-      // console.log(minutes);
     }
-
     return () => {
-      clearInterval(interval);
-      setSeconds(0);
+      clearInterval(timerSeconds);
     }
-  }, [play])
+  }, [play, seconds])
+
+  useEffect(() => {
+    if (play) {
+      timerMinutes = setInterval(() => {
+        setMinutes(minutes => minutes + 1)
+      }, 61000);
+    }
+    return () => {
+      clearInterval(timerMinutes);
+    }
+  }, [play, minutes])
 
   return (
     <View>
